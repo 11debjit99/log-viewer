@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Processing Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        #root {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+        }
+        select, input {
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #logs {
+            margin-top: 20px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+<script defer src="bundle.js"></script></head>
+<body>
+    <div id="root">
+        <h1>Batch Processing Dashboard</h1>
+        <form id="logForm">
+            <label for="logGroup">Log Group:</label>
+            <select id="logGroup" name="logGroup" required>
+                <option value="jobPoller">Job Poller</option>
+                <option value="gateway">gateway</option>
+                <option value="AI_Engine">AI_Engine</option>
+            </select>
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required>
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required>
+            <button type="submit">Fetch Logs</button>
+        </form>
+        <div id="logs">
+            <h2>Logs</h2>
+            <pre id="logOutput">No logs fetched yet.</pre>
+        </div>
+    </div>
+    <script>
+        document.getElementById('logForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const logGroup = document.getElementById('logGroup').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            try {
+                const response = await fetch(`/api/logs?logGroup=${logGroup}&startDate=${startDate}&endDate=${endDate}`);
+                const data = await response.json();
+
+                if (data.logs) {
+                    document.getElementById('logOutput').textContent = JSON.stringify(data.logs, null, 2);
+                } else {
+                    document.getElementById('logOutput').textContent = 'No logs found';
+                }
+            } catch (error) {
+                console.error('Error fetching logs:', error);
+                document.getElementById('logOutput').textContent = 'Error fetching logs';
+            }
+        });
+    </script>
+</body>
+</html>

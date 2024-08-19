@@ -1,0 +1,79 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px; /* Increased padding */
+  border-radius: 4px;
+  width: 90%; /* Increased width */
+  max-width: 800px; /* Increased max-width */
+  max-height: 90%; /* Increased max-height */
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px; /* Increased padding */
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.close {
+  background: none;
+  border: none;
+  font-size: 1.75rem; /* Increased font size */
+  cursor: pointer;
+}
+
+.modal-body {
+  margin-top: 15px; /* Increased margin */
+  display: flex;
+  flex-direction: column; /* Ensure content is in a vertical stack */
+  gap: 15px; /* Increased spacing between rows */
+}
+
+.log-entry {
+  display: flex;
+  justify-content: space-between; /* Distributes child elements evenly */
+  padding: 15px; /* Increased padding */
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.log-entry > div {
+  flex: 1; /* Makes each child element take up equal space */
+  text-align: left;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px; /* Increased margin */
+}
+
+.button {
+  padding: 12px 24px; /* Increased padding */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
